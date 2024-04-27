@@ -1,0 +1,20 @@
+cześć	hello
+jak się masz	how are you?
+dziękuję bardzo	thank you very much
+gdzie jest biblioteka?	where is the library?
+mam psa	I have a dog
+ona lubi koty	she likes cats
+samochód jest nowy	the car is new
+to jest moja książka	this is my book
+on mieszka w Warszawie	he lives in Warsaw
+ona pracuje zdalnie	she works remotely
+lubię grać w szachy	I like to play chess
+jakie masz hobby?	what are your hobbies?
+to jest piękny dzień	it is a beautiful day
+czy możesz mi pomóc?	can you help me?
+jaka jest pogoda?	what is the weather like?
+mam dwie siostry	I have two sisters
+on jest moim przyjacielem	he is my friend
+ta kawa jest zbyt gorąca	this coffee is too hot
+gdzie jest najbliższa restauracja?	where is the nearest restaurant?
+kiedy jest twój urodziny?	when is your birthday?

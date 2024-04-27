@@ -1,54 +1,46 @@
 package com.example;
 
 import org.nd4j.linalg.api.ndarray.INDArray;
+import org.nd4j.linalg.factory.Nd4j;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 public class TextProcessor {
-    private Map<String, Integer> wordToIndex;
-    private Map<Integer, String> indexToWord;  // Mapa dla dekodowania
+    private Dictionary dictionary;
 
-    public TextProcessor() {
-        this.wordToIndex = new HashMap<>();
-        this.indexToWord = new HashMap<>();
-        initializeWordToIndex();
+    public TextProcessor(Dictionary dictionary) {
+        this.dictionary = dictionary;
+        initializeDictionary();
     }
 
-    private void initializeWordToIndex() {
-        String[] exampleWords = {"hello", "world", "example", "test", "translate"};
-        for (int i = 0; i < exampleWords.length; i++) {
-            wordToIndex.put(exampleWords[i], i);
-            indexToWord.put(i, exampleWords[i]);  // Dodanie odwrotnego mapowania
+    private void initializeDictionary() {
+        String[] exampleWords = {"cześć hello", "świat  world", "example", "test", "translate", "cześć", "dziękuję", "biblioteka", "pies", "koty", "samochód", "książka", "Warszawa", "pracuje", "zdalnie", "grać", "szachy", "hobby", "dzień", "pomóc", "pogoda", "siostry", "przyjacielem", "kawa", "gorąca", "restauracja", "urodziny"};
+        int index = 0;
+        for (String word : exampleWords) {
+            dictionary.addWord(word, index++);
         }
+        dictionary.addWord("UNKNOWN", index);
     }
 
-    public int[] encode(String text, int vectorSize) {
-        int[] vector = new int[vectorSize];
+    public INDArray encode(String text, int vectorSize) {
+        double[] vector = new double[vectorSize];
         String[] words = text.split("\\s+");
-        System.out.println("Encoding text: " + text);  // Debug
         boolean found = false;
         for (String word : words) {
-            if (wordToIndex.containsKey(word)) {
-                int index = wordToIndex.get(word);
-                if (index < vectorSize) {
-                    vector[index] = 1;  // Ustawienie na 1 w odpowiedniej pozycji
-                    found = true;
-                }
+            int index = dictionary.getIndex(word);
+            if (index < vectorSize) {
+                vector[index] = 1.0;
+                found = true;
             }
         }
         if (!found) {
-            System.out.println("No words found in index for: " + text);
+            System.out.println("Nie znaleziono indeksu dla: " + text);
         }
-        System.out.println("Encoded vector: " + Arrays.toString(vector));  // Debug
-        return vector;
+        return Nd4j.create(vector, new long[]{1, vectorSize});
     }
 
     public String decode(INDArray outputArray) {
-        System.out.println("Output array: " + outputArray);  // Debug
         int resultIndex = outputArray.argMax(1).getInt(0);
-        System.out.println("Chosen index: " + resultIndex);  // Debug
-        return indexToWord.getOrDefault(resultIndex, "Unknown");
+        return dictionary.getWord(resultIndex);
     }
 }

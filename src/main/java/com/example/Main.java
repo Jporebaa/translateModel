@@ -6,13 +6,18 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
+        // Definiowanie ścieżki do pliku z danymi testowymi
+        String dataPath = "C:\\Users\\jakub\\IdeaProjects\\translateModel\\src\\main\\java\\com\\example\\translation_data.txt";
+
+        // Wywołanie metody do wypisywania ścieżki
+        printFilePath(dataPath);
+
         DataLoader dataLoader = new DataLoader();
-        TextProcessor textProcessor = new TextProcessor();
+        Dictionary dictionary = new Dictionary();
+        TextProcessor textProcessor = new TextProcessor(dictionary);
         TranslationModel translationModel = new TranslationModel(100, 100, 50);
         MultiLayerNetwork model = translationModel.getModel();
-        Translator translator = new Translator(model, textProcessor); // Poprawione: dodano textProcessor
-
-        String dataPath = "C:\\Users\\jakub\\IdeaProjects\\translate_model\\src\\main\\java\\data\\translation_data.txt";
+        Translator translator = new Translator(model, textProcessor);
 
         java.util.List<String[]> trainingData = dataLoader.loadDataSet(dataPath);
 
@@ -34,5 +39,10 @@ public class Main {
                 System.out.println("Przetłumaczony tekst: " + translatedText);
             }
         }
+    }
+
+    // Metoda do wypisywania ścieżki pliku
+    private static void printFilePath(String filePath) {
+        System.out.println("Ścieżka do pliku z danymi: " + filePath);
     }
 }
