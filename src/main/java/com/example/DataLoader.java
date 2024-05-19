@@ -11,21 +11,17 @@ public class DataLoader {
         List<String[]> dataSet = new ArrayList<>();
         try {
             List<String> lines = Files.readAllLines(Paths.get(filePath));
-
-            // Logowanie ilości wczytanych linii
             if (lines.isEmpty()) {
                 System.out.println("Plik danych jest pusty.");
             } else {
                 System.out.println("Plik danych zawiera " + lines.size() + " linii.");
             }
-
             for (String line : lines) {
                 String[] split = line.split("\t");
                 if (split.length == 2) {
                     dataSet.add(split);
                 } else {
-                    // Logowanie problemów z formatem danych
-                    System.out.println("Nieprawidłowy format linii: " + line + " (oczekiwane 2 kolumny, rozdzielone tabulatorem)");
+                    System.out.println("Nieprawidłowy format linii: " + line);
                 }
             }
         } catch (IOException e) {

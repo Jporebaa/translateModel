@@ -20,10 +20,14 @@ public class Dictionary {
     }
 
     public int getIndex(String word) {
-        return wordToIndex.getOrDefault(word, wordToIndex.get("UNKNOWN"));
+        return wordToIndex.getOrDefault(word, -1); // -1 for UNKNOWN
     }
 
     public String getWord(int index) {
         return indexToWord.getOrDefault(index, "UNKNOWN");
+    }
+
+    public int size() {
+        return wordToIndex.size();  // Return the size of the dictionary
     }
 }

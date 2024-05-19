@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ModelTrainer {
     private static final int batchSize = 10;
-    private static final int numEpochs = 15; // Definiowanie liczby epok treningowych
+    private static final int numEpochs = 15;
 
     public ListDataSetIterator<DataSet> prepareDataSet(List<String[]> trainingData, TextProcessor textProcessor, int vocabularySize) {
         List<DataSet> dataSets = new ArrayList<>();
@@ -30,8 +30,13 @@ public class ModelTrainer {
                 model.fit(dataSet);
                 System.out.println("Trening partii danych, strata: " + model.score());
             }
-            System.out.println("Ukończona epoka: " + epoch + ", Strata: " + model.score());
             dataSetIterator.reset(); // Resetowanie iteratora na koniec każdej epoki
+            System.out.println("Ukończona epoka: " + epoch + ", Strata: " + model.score());
         }
+    }
+
+    public void retrainModel(MultiLayerNetwork model, TextProcessor textProcessor, List<String[]> newTrainingData, int vocabularySize) {
+        ListDataSetIterator<DataSet> dataSetIterator = prepareDataSet(newTrainingData, textProcessor, vocabularySize);
+        trainModel(model, dataSetIterator);
     }
 }
