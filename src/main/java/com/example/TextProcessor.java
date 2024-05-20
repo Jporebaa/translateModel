@@ -60,7 +60,7 @@ public class TextProcessor {
         text = text.toLowerCase();
         text = Normalizer.normalize(text, Normalizer.Form.NFD);
         text = text.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
-        return text;
+        return text.replaceAll("\\s+", " ").trim(); // Dodatkowe usuwanie białych znaków
     }
 
     public String decode(INDArray outputArray) {
