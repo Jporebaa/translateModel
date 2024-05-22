@@ -17,7 +17,8 @@ public class DataLoader {
                 System.out.println("Plik danych zawiera " + lines.size() + " linii.");
             }
             for (String line : lines) {
-                String[] split = line.split("\t");
+                // Usuń dodatkowe białe znaki i sprawdź, czy linia ma dokładnie dwa elementy oddzielone tabulatorem
+                String[] split = line.trim().split("\\s+");
                 if (split.length == 2) {
                     dataSet.add(split);
                 } else {

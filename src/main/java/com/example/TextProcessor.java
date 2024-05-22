@@ -15,33 +15,23 @@ public class TextProcessor {
 
     private void initializeDictionary() {
         String[] exampleWords = {
-                "cześć hello", "Cześć Hi", "Do widzenia Goodbye", "Tak Yes", "Nie No",
-                "Dziękuje Thank", "Proszę Please", "Przepraszam Sorry", "Ja I",
-                "Ty You", "On He", "Ona She", "Ono It", "My We", "Oni They", "Ten This",
-                "Tamten That", "Tutaj Here", "Tam There", "Co What", "Kto Who",
-                "Gdzie Where", "Kiedy When", "Dlaczego Why", "Jak How", "Jeść Eat",
-                "Pić Drink", "Spać Sleep", "Iść Walk", "Biec Run", "Skakać Jump",
-                "Siedzieć Sit", "Stać Stand", "Czytać Read", "Pisać Write",
-                "Mówić Speak", "Słuchać Listen", "Rozumieć Understand", "Kochać Love",
-                "Nienawidzić Hate", "Szczęśliwy Happy", "Smutny Sad", "Zły Angry",
-                "Zmęczony Tired", "Gorąc Hot", "Zimno Cold", "duży Big", "Mały Small",
-                "Dobry Good", "Zły Bad", "Zwierze Animal", "Jabłko Apple", "Osa Bee",
-                "Bank Bank", "Bar Bar", "jak się masz how are you?", "dziękuję bardzo thank you very much",
-                "gdzie jest biblioteka? where is the library?", "mam psa I have a dog",
-                "ona lubi koty she likes cats", "samochód jest nowy the car is new",
-                "to jest moja książka this is my book", "on mieszka w Warszawie he lives in Warsaw",
-                "ona pracuje zdalnie she works remotely", "lubię grać w szachy I like to play chess",
-                "jakie masz hobby? what are your hobbies?", "to jest piękny dzień it is a beautiful day",
-                "czy możesz mi pomóc? can you help me?", "jaka jest pogoda? what is the weather like?",
-                "mam dwie siostry I have two sisters", "on jest moim przyjacielem he is my friend",
-                "ta kawa jest zbyt gorąca this coffee is too hot",
-                "gdzie jest najbliższa restauracja? where is the nearest restaurant?",
-                "kiedy jest twój urodziny? when is your birthday?"
+                "cześć hello", "do widzenia goodbye", "tak yes", "nie no",
+                "dziękuję thank", "proszę please", "przepraszam sorry", "ja i",
+                "ty you", "on he", "ona she", "ono it", "my we", "oni they",
+                "ten this", "tamten that", "tutaj here", "tam there", "co what",
+                "kto who", "gdzie where", "kiedy when", "dlaczego why", "jak how",
+                "jeść eat", "pić drink", "spać sleep", "iść walk", "biec run",
+                "skakać jump", "siedzieć sit", "stać stand", "czytać read",
+                "pisać write", "mówić speak", "słuchać listen", "rozumieć understand",
+                "kochać love", "nienawidzić hate", "szczęśliwy happy", "smutny sad",
+                "zły angry", "zmęczony tired", "gorąc hot", "zimno cold", "duży big",
+                "mały small", "dobry good", "zły bad", "zwierzę animal", "jabłko apple",
+                "osa bee", "bank bank", "bar bar"
         };
 
         int index = 0;
         for (String entry : exampleWords) {
-            String[] words = entry.split(" ");
+            String[] words = entry.split("\\s+");
             addWord(normalizeText(words[0]), index);  // Dodawanie wersji polskiej
             addWord(normalizeText(words[1]), index);  // Dodawanie wersji angielskiej
             index++;
@@ -78,6 +68,7 @@ public class TextProcessor {
         text = text.toLowerCase();
         text = Normalizer.normalize(text, Normalizer.Form.NFD);
         text = text.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+        text = text.replaceAll("[^\\p{IsAlphabetic}\\p{IsDigit}\\s]", ""); // Usuwanie znaków specjalnych
         return text.replaceAll("\\s+", " ").trim(); // Dodatkowe usuwanie białych znaków
     }
 

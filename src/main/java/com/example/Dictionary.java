@@ -18,6 +18,7 @@ public class Dictionary {
         if (!wordToIndex.containsKey(word)) {
             wordToIndex.put(word, index);
             indexToWord.put(index, word);
+            System.out.println("Dodano słowo: " + word + " na indeksie: " + index);
         }
     }
 
@@ -38,6 +39,7 @@ public class Dictionary {
         text = text.toLowerCase();
         text = Normalizer.normalize(text, Normalizer.Form.NFD);
         text = text.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+        text = text.replaceAll("[^\\p{IsAlphabetic}\\p{IsDigit}\\s]", ""); // Usuwanie znaków specjalnych
         return text.replaceAll("\\s+", " ").trim(); // Dodatkowe usuwanie białych znaków
     }
 }
