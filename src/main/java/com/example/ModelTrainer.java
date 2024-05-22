@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ModelTrainer {
     private static final int batchSize = 10;
-    private static final int numEpochs = 15;
+    private static final int numEpochs = 50; // Zwiększona liczba epok
 
     public ListDataSetIterator<DataSet> prepareDataSet(List<String[]> trainingData, TextProcessor textProcessor, int vocabularySize) {
         List<DataSet> dataSets = new ArrayList<>();
@@ -19,6 +19,7 @@ public class ModelTrainer {
             INDArray outputVector = textProcessor.encode(pair[1], vocabularySize);
             DataSet dataSet = new DataSet(inputVector, outputVector);
             dataSets.add(dataSet);
+            System.out.println("Dodano do zestawu treningowego: " + pair[0] + " -> " + pair[1]);
         }
         return new ListDataSetIterator<>(dataSets, batchSize);
     }

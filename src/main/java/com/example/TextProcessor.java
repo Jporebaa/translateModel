@@ -3,6 +3,7 @@ package com.example;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
 import java.text.Normalizer;
+import java.util.Arrays;
 
 public class TextProcessor {
     private Dictionary dictionary;
@@ -14,12 +15,28 @@ public class TextProcessor {
 
     private void initializeDictionary() {
         String[] exampleWords = {
-                "cześć hello", "świat world", "example test", "translate tłumaczyć", "dziękuję thank you",
-                "biblioteka library", "pies dog", "koty cats", "samochód car", "książka book",
-                "Warszawa Warsaw", "pracuje work", "zdalnie remotely", "grać play", "szachy chess",
-                "hobby hobby", "dzień day", "pomóc help", "pogoda weather", "siostry sisters",
-                "przyjacielem friend", "kawa coffee", "gorąca hot", "restauracja restaurant", "urodziny birthday",
-                "mama mother" // Dodaj więcej par słów
+                "cześć hello", "Cześć Hi", "Do widzenia Goodbye", "Tak Yes", "Nie No",
+                "Dziękuje Thank", "Proszę Please", "Przepraszam Sorry", "Ja I",
+                "Ty You", "On He", "Ona She", "Ono It", "My We", "Oni They", "Ten This",
+                "Tamten That", "Tutaj Here", "Tam There", "Co What", "Kto Who",
+                "Gdzie Where", "Kiedy When", "Dlaczego Why", "Jak How", "Jeść Eat",
+                "Pić Drink", "Spać Sleep", "Iść Walk", "Biec Run", "Skakać Jump",
+                "Siedzieć Sit", "Stać Stand", "Czytać Read", "Pisać Write",
+                "Mówić Speak", "Słuchać Listen", "Rozumieć Understand", "Kochać Love",
+                "Nienawidzić Hate", "Szczęśliwy Happy", "Smutny Sad", "Zły Angry",
+                "Zmęczony Tired", "Gorąc Hot", "Zimno Cold", "duży Big", "Mały Small",
+                "Dobry Good", "Zły Bad", "Zwierze Animal", "Jabłko Apple", "Osa Bee",
+                "Bank Bank", "Bar Bar", "jak się masz how are you?", "dziękuję bardzo thank you very much",
+                "gdzie jest biblioteka? where is the library?", "mam psa I have a dog",
+                "ona lubi koty she likes cats", "samochód jest nowy the car is new",
+                "to jest moja książka this is my book", "on mieszka w Warszawie he lives in Warsaw",
+                "ona pracuje zdalnie she works remotely", "lubię grać w szachy I like to play chess",
+                "jakie masz hobby? what are your hobbies?", "to jest piękny dzień it is a beautiful day",
+                "czy możesz mi pomóc? can you help me?", "jaka jest pogoda? what is the weather like?",
+                "mam dwie siostry I have two sisters", "on jest moim przyjacielem he is my friend",
+                "ta kawa jest zbyt gorąca this coffee is too hot",
+                "gdzie jest najbliższa restauracja? where is the nearest restaurant?",
+                "kiedy jest twój urodziny? when is your birthday?"
         };
 
         int index = 0;
@@ -38,6 +55,7 @@ public class TextProcessor {
     public INDArray encode(String text, int vectorSize) {
         text = normalizeText(text);
         double[] vector = new double[vectorSize];
+        Arrays.fill(vector, 0.0);
         String[] words = text.split("\\s+");
         boolean found = false;
         for (String word : words) {

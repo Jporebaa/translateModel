@@ -16,7 +16,9 @@ public class TranslationModel {
                 .list()
                 .layer(0, new DenseLayer.Builder().nIn(inputSize).nOut(hiddenNodes)
                         .activation(Activation.RELU).build())
-                .layer(1, new OutputLayer.Builder(LossFunctions.LossFunction.MCXENT)
+                .layer(1, new DenseLayer.Builder().nIn(hiddenNodes).nOut(hiddenNodes)
+                        .activation(Activation.RELU).build())
+                .layer(2, new OutputLayer.Builder(LossFunctions.LossFunction.MCXENT)
                         .activation(Activation.SOFTMAX).nIn(hiddenNodes).nOut(outputSize).build())
                 .build();
 
