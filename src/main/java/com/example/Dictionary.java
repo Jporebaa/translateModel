@@ -14,7 +14,7 @@ public class Dictionary {
     }
 
     public void addWord(String word, int index) {
-        word = normalizeText(word); // Normalizacja tekstu podczas dodawania
+        word = normalizeText(word);
         if (!wordToIndex.containsKey(word)) {
             wordToIndex.put(word, index);
             indexToWord.put(index, word);
@@ -23,8 +23,8 @@ public class Dictionary {
     }
 
     public int getIndex(String word) {
-        word = normalizeText(word); // Normalizacja tekstu podczas wyszukiwania
-        return wordToIndex.getOrDefault(word, -1); // -1 for UNKNOWN
+        word = normalizeText(word);
+        return wordToIndex.getOrDefault(word, -1); // Zwraca -1 jeśli słowo nie jest znane
     }
 
     public String getWord(int index) {
@@ -32,14 +32,14 @@ public class Dictionary {
     }
 
     public int size() {
-        return wordToIndex.size();  // Return the size of the dictionary
+        return wordToIndex.size();
     }
 
     private String normalizeText(String text) {
         text = text.toLowerCase();
         text = Normalizer.normalize(text, Normalizer.Form.NFD);
         text = text.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
-        text = text.replaceAll("[^\\p{IsAlphabetic}\\p{IsDigit}\\s]", ""); // Usuwanie znaków specjalnych
-        return text.replaceAll("\\s+", " ").trim(); // Dodatkowe usuwanie białych znaków
+        text = text.replaceAll("[^\\p{IsAlphabetic}\\p{IsDigit}\\s]", "");
+        return text.replaceAll("\\s+", " ").trim();
     }
 }
